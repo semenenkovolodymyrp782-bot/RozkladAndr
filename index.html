@@ -1,0 +1,4379 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Розклад ававава</title>
+
+<style>
+
+:root {
+    --bg: #030303;
+    --bg2: #090507;
+
+    --card: rgba(12,5,8,.84);
+    --card2: rgba(20,7,11,.96);
+
+    --text: #f5eeee;
+    --muted: #9d8589;
+
+    --blue: #b50928;
+    --cyan: #ff294d;
+    --purple: #650014;
+    --pink: #ff1744;
+    --green: #e0002a;
+    --yellow: #ff687e;
+    --red: #d60029;
+
+    --border: rgba(255,35,65,.13);
+
+    --shadow:
+        0 20px 70px rgba(0,0,0,.75),
+        inset 0 1px 0 rgba(255,255,255,.025);
+
+    --radius: 24px;
+    --ease: cubic-bezier(.2,.8,.2,1);
+}
+
+body.light {
+    --bg: #edf3ff;
+    --bg2: #f8fbff;
+
+    --card: rgba(255,255,255,.72);
+    --card2: rgba(255,255,255,.94);
+
+    --text: #18213b;
+    --muted: #64708e;
+
+    --border: rgba(20,40,90,.12);
+
+    --shadow:
+        0 20px 50px rgba(48,75,130,.16),
+        inset 0 1px 0 rgba(255,255,255,.85);
+}
+
+body.blueTheme {
+    --blue: #087cff;
+    --cyan: #00d9ff;
+    --purple: #315cff;
+    --pink: #007aff;
+    --green: #00e0a4;
+}
+
+body.purpleTheme {
+    --blue: #8b5cf6;
+    --cyan: #c084fc;
+    --purple: #a855f7;
+    --pink: #ec4899;
+    --green: #34d399;
+}
+
+body.greenTheme {
+    --blue: #00b894;
+    --cyan: #00f5a0;
+    --purple: #00cec9;
+    --pink: #55efc4;
+    --green: #00ffb3;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+
+    font-family:
+        Inter,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(180,0,30,.20),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 85% 25%,
+            rgba(100,0,20,.18),
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(255,0,35,.08),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            var(--bg),
+            var(--bg2)
+        );
+
+    transition:
+        background .7s ease,
+        color .5s ease;
+
+    overflow-x: hidden;
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -20;
+}
+
+.background::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(160,0,25,.22),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 35%,
+            rgba(100,0,15,.20),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(255,0,35,.10),
+            transparent 35%
+        );
+
+    filter: blur(20px);
+
+    animation:
+        ghoulAtmosphere 12s ease-in-out infinite alternate;
+}
+
+@keyframes ghoulAtmosphere {
+    0% {
+        transform: scale(1) translate(0,0);
+    }
+
+    100% {
+        transform: scale(1.15) translate(-30px,20px);
+    }
+}
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.grid {
+    position: absolute;
+    inset: -50%;
+
+    background-image:
+        linear-gradient(
+            rgba(100,130,255,.045) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(100,130,255,.045) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    transform:
+        perspective(700px)
+        rotateX(62deg)
+        translateY(-120px);
+
+    animation:
+        gridMove 20s linear infinite;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black 25%,
+            black 75%,
+            transparent
+        );
+}
+
+@keyframes gridMove {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 0 55px;
+    }
+}
+
+/* =========================================================
+   ORBS
+========================================================= */
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: .42;
+
+    animation:
+        orbFloat 12s ease-in-out infinite alternate;
+}
+
+.orb1 {
+    width: 460px;
+    height: 460px;
+    left: -150px;
+    top: 0;
+    background: var(--blue);
+}
+
+.orb2 {
+    width: 390px;
+    height: 390px;
+    right: -130px;
+    top: 25%;
+    background: var(--purple);
+    animation-delay: -4s;
+}
+
+.orb3 {
+    width: 320px;
+    height: 320px;
+    left: 35%;
+    bottom: -160px;
+    background: var(--cyan);
+    animation-delay: -8s;
+}
+
+@keyframes orbFloat {
+    from {
+        transform:
+            translate3d(0,0,0)
+            scale(1);
+    }
+
+    to {
+        transform:
+            translate3d(90px,-60px,0)
+            scale(1.2);
+    }
+}
+
+/* =========================================================
+   AURORA
+========================================================= */
+
+.aurora {
+    position: absolute;
+
+    width: 900px;
+    height: 350px;
+
+    left: 50%;
+    top: 20%;
+
+    transform:
+        translateX(-50%)
+        rotate(-8deg);
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(181,9,40,.16),
+            rgba(101,0,20,.18),
+            transparent
+        );
+
+    filter: blur(50px);
+    opacity: .35;
+
+    animation:
+        auroraMove 10s ease-in-out infinite alternate;
+}
+
+@keyframes auroraMove {
+    from {
+        transform:
+            translateX(-50%)
+            translateY(0)
+            rotate(-8deg)
+            scaleX(1);
+    }
+
+    to {
+        transform:
+            translateX(-50%)
+            translateY(80px)
+            rotate(8deg)
+            scaleX(1.25);
+    }
+}
+
+/* =========================================================
+   BLOOD FOG
+========================================================= */
+
+.bloodFog {
+    position: absolute;
+
+    width: 700px;
+    height: 700px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(180,0,30,.18),
+            rgba(100,0,20,.08) 35%,
+            transparent 70%
+        );
+
+    filter: blur(70px);
+    opacity: .7;
+
+    animation:
+        bloodFogMove 16s ease-in-out infinite alternate;
+}
+
+.bloodFog.fog1 {
+    left: -250px;
+    top: 10%;
+}
+
+.bloodFog.fog2 {
+    right: -250px;
+    bottom: 0;
+    animation-delay: -7s;
+}
+
+@keyframes bloodFogMove {
+    from {
+        transform:
+            translate(0,0)
+            scale(1);
+    }
+
+    to {
+        transform:
+            translate(100px,-70px)
+            scale(1.3);
+    }
+}
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+.particles {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        radial-gradient(
+            1px 1px at 10% 20%,
+            rgba(255,255,255,.8),
+            transparent
+        ),
+        radial-gradient(
+            1px 1px at 30% 70%,
+            rgba(255,255,255,.65),
+            transparent
+        ),
+        radial-gradient(
+            1px 1px at 70% 30%,
+            rgba(255,255,255,.8),
+            transparent
+        ),
+        radial-gradient(
+            1px 1px at 90% 80%,
+            rgba(255,255,255,.55),
+            transparent
+        );
+
+    background-size:
+        300px 300px,
+        420px 420px,
+        520px 520px,
+        650px 650px;
+
+    animation:
+        particlesMove 25s linear infinite;
+}
+
+@keyframes particlesMove {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-220px);
+    }
+}
+
+/* =========================================================
+   METEORS
+========================================================= */
+
+.meteor {
+    position: absolute;
+
+    width: 150px;
+    height: 2px;
+
+    border-radius: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #8f001c,
+            #ff294d
+        );
+
+    box-shadow:
+        0 0 12px #ff173d,
+        0 0 25px #8f001c;
+
+    transform: rotate(-35deg);
+
+    opacity: 0;
+
+    animation:
+        meteor 8s linear infinite;
+}
+
+.meteor:nth-child(5) {
+    left: 10%;
+    top: 8%;
+}
+
+.meteor:nth-child(6) {
+    left: 65%;
+    top: 12%;
+    animation-delay: 3s;
+}
+
+.meteor:nth-child(7) {
+    left: 40%;
+    top: 45%;
+    animation-delay: 6s;
+}
+
+@keyframes meteor {
+    0% {
+        transform:
+            translate(0,0)
+            rotate(-35deg);
+        opacity: 0;
+    }
+
+    8% {
+        opacity: 1;
+    }
+
+    30% {
+        transform:
+            translate(700px,450px)
+            rotate(-35deg);
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* =========================================================
+   RINGS
+========================================================= */
+
+.ring {
+    position: absolute;
+
+    border:
+        1px solid
+        rgba(90,130,255,.12);
+
+    border-radius: 50%;
+
+    animation:
+        ringFloat 15s linear infinite;
+}
+
+.ring1 {
+    width: 500px;
+    height: 500px;
+    left: -250px;
+    top: 45%;
+}
+
+.ring2 {
+    width: 350px;
+    height: 350px;
+    right: -150px;
+    bottom: 5%;
+    animation-duration: 20s;
+}
+
+@keyframes ringFloat {
+    from {
+        transform:
+            rotate(0deg)
+            scale(1);
+    }
+
+    to {
+        transform:
+            rotate(360deg)
+            scale(1.08);
+    }
+}
+
+/* =========================================================
+   PETALS
+========================================================= */
+
+.petals {
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+    overflow: hidden;
+
+    z-index: 1;
+}
+
+.petal {
+    position: absolute;
+    top: -80px;
+
+    width: 18px;
+    height: 28px;
+
+    background:
+        radial-gradient(
+            ellipse at 35% 30%,
+            #ff526c 0%,
+            #c90028 35%,
+            #65000f 75%,
+            #240006 100%
+        );
+
+    border-radius:
+        70% 20% 70% 20%;
+
+    opacity: .78;
+
+    filter:
+        drop-shadow(
+            0 0 6px
+            rgba(255,0,40,.55)
+        );
+
+    animation:
+        petalFall linear infinite;
+}
+
+.petal:nth-child(1) {
+    left: 4%;
+    animation-duration: 9s;
+    animation-delay: -2s;
+}
+
+.petal:nth-child(2) {
+    left: 12%;
+    animation-duration: 13s;
+    animation-delay: -8s;
+}
+
+.petal:nth-child(3) {
+    left: 21%;
+    animation-duration: 10s;
+    animation-delay: -5s;
+}
+
+.petal:nth-child(4) {
+    left: 31%;
+    animation-duration: 15s;
+    animation-delay: -11s;
+}
+
+.petal:nth-child(5) {
+    left: 42%;
+    animation-duration: 11s;
+    animation-delay: -4s;
+}
+
+.petal:nth-child(6) {
+    left: 53%;
+    animation-duration: 14s;
+    animation-delay: -9s;
+}
+
+.petal:nth-child(7) {
+    left: 64%;
+    animation-duration: 10s;
+    animation-delay: -1s;
+}
+
+.petal:nth-child(8) {
+    left: 74%;
+    animation-duration: 16s;
+    animation-delay: -7s;
+}
+
+.petal:nth-child(9) {
+    left: 84%;
+    animation-duration: 12s;
+    animation-delay: -3s;
+}
+
+.petal:nth-child(10) {
+    left: 94%;
+    animation-duration: 14s;
+    animation-delay: -12s;
+}
+
+@keyframes petalFall {
+    0% {
+        transform:
+            translate3d(0,-80px,0)
+            rotate(0deg)
+            scale(.8);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: .9;
+    }
+
+    30% {
+        transform:
+            translate3d(80px,30vh,0)
+            rotate(160deg)
+            scale(1);
+    }
+
+    55% {
+        transform:
+            translate3d(-70px,60vh,0)
+            rotate(320deg)
+            scale(.8);
+    }
+
+    80% {
+        transform:
+            translate3d(100px,85vh,0)
+            rotate(500deg)
+            scale(.95);
+    }
+
+    100% {
+        transform:
+            translate3d(-30px,115vh,0)
+            rotate(700deg)
+            scale(.7);
+        opacity: 0;
+    }
+}
+
+/* =========================================================
+   KANEKI
+========================================================= */
+
+.kaneki-bg {
+    position: fixed;
+    right: -80px;
+    top: 50%;
+
+    width: 500px;
+    height: 720px;
+
+    transform:
+        translateY(-50%);
+
+    z-index: -5;
+
+    pointer-events: none;
+
+    opacity: .18;
+
+    filter:
+        drop-shadow(
+            0 0 35px
+            rgba(255,0,40,.25)
+        );
+}
+
+.kaneki-hair {
+    position: absolute;
+
+    width: 260px;
+    height: 320px;
+
+    right: 100px;
+    top: 60px;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 40%,
+            #f3f3f3,
+            #aaa 45%,
+            #333 75%,
+            #080808 100%
+        );
+
+    border-radius:
+        48% 52% 35% 40%;
+
+    transform:
+        rotate(-8deg);
+
+    box-shadow:
+        -40px 20px 0 -15px #111,
+        35px 40px 0 -20px #222;
+}
+
+.kaneki-head {
+    position: absolute;
+
+    width: 235px;
+    height: 280px;
+
+    right: 115px;
+    top: 100px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ddd,
+            #888
+        );
+
+    border-radius:
+        48% 48% 44% 44%;
+
+    box-shadow:
+        inset -30px -10px 50px rgba(0,0,0,.6);
+}
+
+.kaneki-eye {
+    position: absolute;
+
+    width: 35px;
+    height: 25px;
+
+    right: 42px;
+    top: 110px;
+
+    background: #ff1744;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 15px #ff1744,
+        0 0 35px #d60029;
+}
+
+.kaneki-mask {
+    position: absolute;
+
+    width: 150px;
+    height: 85px;
+
+    right: 30px;
+    bottom: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #151515,
+            #050505
+        );
+
+    border-radius:
+        30% 40% 45% 30%;
+
+    box-shadow:
+        inset 0 0 20px rgba(255,0,30,.2);
+}
+
+.kaneki-neck {
+    position: absolute;
+
+    width: 120px;
+    height: 130px;
+
+    right: 170px;
+    top: 330px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #222,
+            #777,
+            #222
+        );
+}
+
+.kaneki-body {
+    position: absolute;
+
+    width: 340px;
+    height: 300px;
+
+    right: 20px;
+    top: 420px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #151515,
+            #050505
+        );
+
+    border-radius:
+        50% 50% 15% 15%;
+
+    box-shadow:
+        inset 0 0 70px rgba(255,0,30,.12);
+}
+
+.kaneki-red-aura {
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    right: -50px;
+    top: 100px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,0,35,.20),
+            transparent 65%
+        );
+
+    filter: blur(40px);
+
+    animation:
+        kanekiAura 5s ease-in-out infinite alternate;
+}
+
+@keyframes kanekiAura {
+    from {
+        transform: scale(.9);
+        opacity: .5;
+    }
+
+    to {
+        transform: scale(1.15);
+        opacity: .9;
+    }
+}
+
+/* =========================================================
+   MOUSE GLOW
+========================================================= */
+
+#mouseGlow {
+    position: fixed;
+
+    width: 300px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,0,40,.10),
+            transparent 70%
+        );
+
+    transform:
+        translate(-50%,-50%);
+
+    z-index: -1;
+
+    transition:
+        left .12s ease-out,
+        top .12s ease-out;
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container {
+    width: min(1500px,94%);
+    margin: auto;
+
+    position: relative;
+    z-index: 2;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header {
+    padding: 32px 0 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logoIcon {
+    width: 60px;
+    height: 60px;
+
+    border-radius: 19px;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d0002f,
+            #41000d
+        );
+
+    box-shadow:
+        0 0 35px
+        rgba(210,0,40,.45);
+
+    animation:
+        logoPulse 4s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.logo h1 {
+    font-size:
+        clamp(22px,3vw,34px);
+
+    letter-spacing: -.8px;
+}
+
+.logo p {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.control {
+    height: 44px;
+    padding: 0 15px;
+
+    border-radius: 14px;
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+        var(--card);
+
+    color:
+        var(--text);
+
+    backdrop-filter:
+        blur(18px);
+
+    cursor:
+        pointer;
+
+    transition:
+        .3s ease;
+}
+
+.control:hover {
+    border-color: var(--blue);
+
+    box-shadow:
+        0 0 25px
+        rgba(255,0,40,.2);
+}
+
+/* =========================================================
+   THEME MENU
+========================================================= */
+
+.themeMenu {
+    position: relative;
+}
+
+.themeOptions {
+    position: absolute;
+
+    right: 0;
+    top: 52px;
+
+    width: 190px;
+
+    padding: 8px;
+
+    border-radius: 18px;
+
+    background:
+        var(--card2);
+
+    border:
+        1px solid
+        var(--border);
+
+    backdrop-filter:
+        blur(25px);
+
+    box-shadow:
+        var(--shadow);
+
+    opacity: 0;
+
+    transform:
+        translateY(-10px)
+        scale(.96);
+
+    pointer-events: none;
+
+    transition:
+        .3s var(--ease);
+
+    z-index: 50;
+}
+
+.themeMenu.open .themeOptions {
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        scale(1);
+
+    pointer-events: auto;
+}
+
+.themeOption {
+    width: 100%;
+
+    padding: 11px;
+
+    border: 0;
+
+    border-radius: 12px;
+
+    background: transparent;
+
+    color: var(--text);
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background .25s ease;
+}
+
+.themeOption:hover {
+    background:
+        rgba(100,120,255,.12);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    position: relative;
+
+    padding: 34px;
+
+    border-radius: 30px;
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(60,100,255,.12),
+            rgba(160,70,255,.08)
+        ),
+        var(--card);
+
+    backdrop-filter:
+        blur(25px);
+
+    box-shadow:
+        var(--shadow);
+
+    overflow: hidden;
+
+    margin-bottom: 24px;
+}
+
+.hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 450px;
+    height: 450px;
+
+    right: -160px;
+    top: -190px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,30,70,.18),
+            transparent 70%
+        );
+
+    animation:
+        heroGlow 7s ease-in-out infinite alternate;
+}
+
+@keyframes heroGlow {
+    to {
+        transform:
+            scale(1.35)
+            translate(-20px,20px);
+    }
+}
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 100%;
+    height: 1px;
+
+    left: 0;
+    top: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--blue),
+            var(--purple),
+            transparent
+        );
+
+    opacity: .5;
+
+    animation:
+        heroLine 5s linear infinite;
+}
+
+@keyframes heroLine {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.heroContent {
+    position: relative;
+    z-index: 2;
+}
+
+.heroTop {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.heroTitle {
+    font-size:
+        clamp(30px,5vw,58px);
+
+    font-weight: 800;
+
+    letter-spacing: -2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--text),
+            var(--blue),
+            var(--purple)
+        );
+
+    -webkit-background-clip: text;
+
+    color: transparent;
+
+    background-size: 200% 100%;
+
+    animation:
+        titleGradient 5s ease infinite;
+}
+
+@keyframes titleGradient {
+    0%,100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.weekBadge {
+    padding: 11px 17px;
+
+    border-radius: 100px;
+
+    background:
+        rgba(255,0,40,.08);
+
+    border:
+        1px solid
+        rgba(255,0,40,.25);
+
+    color: var(--blue);
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.heroGrid {
+    margin-top: 26px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 14px;
+}
+
+.stat {
+    padding: 17px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid
+        var(--border);
+
+    transition: .3s ease;
+}
+
+.stat:hover {
+    border-color:
+        rgba(255,0,40,.3);
+
+    background:
+        rgba(255,255,255,.04);
+}
+
+.statLabel {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+.statValue {
+    font-size: 20px;
+    font-weight: 750;
+}
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progressArea {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap: 16px;
+
+    margin-top: 22px;
+}
+
+.progressBox {
+    position: relative;
+
+    padding: 18px 20px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.015)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.09);
+
+    backdrop-filter:
+        blur(20px);
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,.06),
+        0 15px 40px
+        rgba(0,0,0,.15);
+
+    transition:
+        border-color .4s ease,
+        box-shadow .4s ease;
+}
+
+.progressBox:hover {
+    border-color:
+        rgba(255,0,40,.45);
+
+    box-shadow:
+        0 20px 55px
+        rgba(0,0,0,.22),
+        0 0 35px
+        rgba(255,0,40,.12);
+}
+
+.progressHeader {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    gap: 15px;
+
+    margin-bottom: 14px;
+}
+
+.progressTitle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.progressTitle b {
+    display: block;
+    font-size: 13px;
+}
+
+.progressTitle small {
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.progressIcon {
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    font-size: 17px;
+
+    background:
+        rgba(255,0,40,.12);
+
+    border:
+        1px solid
+        rgba(255,0,40,.20);
+
+    animation:
+        iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+.progressHeader > strong {
+    font-size: 17px;
+    font-weight: 800;
+
+    min-width: 48px;
+
+    text-align: right;
+
+    color: var(--cyan);
+}
+
+.premiumProgress {
+    position: relative;
+
+    width: 100%;
+    height: 12px;
+
+    border-radius: 100px;
+
+    overflow: hidden;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid
+        rgba(255,255,255,.055);
+
+    box-shadow:
+        inset 0 2px 5px
+        rgba(0,0,0,.25);
+}
+
+.progressFill {
+    position: relative;
+
+    height: 100%;
+    width: 0%;
+
+    border-radius: inherit;
+
+    transition:
+        width .8s var(--ease);
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--cyan),
+            var(--blue),
+            var(--purple)
+        );
+
+    box-shadow:
+        0 0 18px
+        rgba(255,0,40,.5);
+
+    overflow: hidden;
+}
+
+.lessonProgressFill {
+    background:
+        linear-gradient(
+            90deg,
+            var(--green),
+            var(--cyan),
+            var(--blue)
+        );
+}
+
+.dayProgressFill {
+    background:
+        linear-gradient(
+            90deg,
+            var(--cyan),
+            var(--blue),
+            var(--purple),
+            var(--pink)
+        );
+
+    background-size: 250% 100%;
+
+    animation:
+        progressGradient 4s linear infinite;
+}
+
+@keyframes progressGradient {
+    from {
+        background-position: 0% 50%;
+    }
+
+    to {
+        background-position: 250% 50%;
+    }
+}
+
+.progressShine {
+    position: absolute;
+
+    inset: 0;
+
+    width: 45%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.5),
+            transparent
+        );
+
+    transform:
+        translateX(-150%);
+
+    animation:
+        shine 2.8s linear infinite;
+}
+
+@keyframes shine {
+    from {
+        transform:
+            translateX(-150%);
+    }
+
+    to {
+        transform:
+            translateX(350%);
+    }
+}
+
+.progressDot {
+    position: absolute;
+
+    right: -2px;
+    top: 50%;
+
+    width: 8px;
+    height: 8px;
+
+    transform:
+        translateY(-50%);
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 8px white,
+        0 0 18px var(--cyan),
+        0 0 28px var(--blue);
+
+    animation:
+        dotPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+    0%,100% {
+        transform:
+            translateY(-50%)
+            scale(.85);
+    }
+
+    50% {
+        transform:
+            translateY(-50%)
+            scale(1.25);
+    }
+}
+
+.progressTimes {
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    margin-top: 9px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+.progressTimes span:nth-child(2) {
+    color: var(--text);
+    font-weight: 700;
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.toolbar {
+    display: flex;
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+
+    flex-wrap: wrap;
+}
+
+.search {
+    flex: 1;
+
+    min-width: 240px;
+
+    height: 52px;
+
+    padding: 0 18px;
+
+    border-radius: 17px;
+
+    border:
+        1px solid
+        var(--border);
+
+    outline: none;
+
+    background:
+        var(--card);
+
+    color:
+        var(--text);
+
+    backdrop-filter:
+        blur(18px);
+
+    transition:
+        border-color .3s ease,
+        box-shadow .3s ease;
+}
+
+.search::placeholder {
+    color: var(--muted);
+}
+
+.search:focus {
+    border-color:
+        var(--blue);
+
+    box-shadow:
+        0 0 30px
+        rgba(255,0,40,.14);
+}
+
+/* =========================================================
+   DAYS
+========================================================= */
+
+.daysFilter {
+    display: flex;
+
+    gap: 8px;
+
+    overflow-x: auto;
+
+    padding-bottom: 12px;
+
+    scrollbar-width: none;
+
+    margin-bottom: 22px;
+}
+
+.daysFilter::-webkit-scrollbar {
+    display: none;
+}
+
+.dayButton {
+    padding: 11px 17px;
+
+    border-radius: 14px;
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+        var(--card);
+
+    color:
+        var(--muted);
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition: .3s ease;
+}
+
+.dayButton:hover {
+    color: var(--text);
+
+    border-color:
+        rgba(255,0,40,.4);
+}
+
+.dayButton.active {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--purple)
+        );
+
+    border-color: transparent;
+
+    box-shadow:
+        0 8px 30px
+        rgba(255,0,40,.25);
+}
+
+/* =========================================================
+   SCHEDULE
+========================================================= */
+
+.schedule {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5,minmax(0,1fr));
+
+    gap: 14px;
+
+    padding-bottom: 50px;
+}
+
+/* =========================================================
+   DAY
+========================================================= */
+
+.day {
+    min-width: 0;
+
+    border-radius:
+        var(--radius);
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+        var(--card);
+
+    backdrop-filter:
+        blur(20px);
+
+    box-shadow:
+        var(--shadow);
+
+    overflow:
+        hidden;
+
+    transition:
+        border-color .35s ease,
+        box-shadow .35s ease;
+}
+
+.day:hover {
+    border-color:
+        rgba(255,0,40,.28);
+
+    box-shadow:
+        0 25px 65px
+        rgba(0,0,0,.35),
+        0 0 35px
+        rgba(255,0,40,.08);
+}
+
+.day.today {
+    border-color:
+        rgba(255,0,40,.70);
+
+    box-shadow:
+        0 0 45px
+        rgba(255,0,40,.14);
+}
+
+/* =========================================================
+   DAY HEADER
+========================================================= */
+
+.dayHeader {
+    position: relative;
+
+    padding: 20px;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,0,40,.09),
+            rgba(100,0,20,.05)
+        );
+
+    overflow: hidden;
+}
+
+.dayHeader::after {
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    right: -50px;
+    top: -50px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,0,40,.2),
+            transparent
+        );
+
+    animation:
+        dayOrb 5s ease-in-out infinite alternate;
+}
+
+@keyframes dayOrb {
+    to {
+        transform: scale(1.5);
+    }
+}
+
+.dayName {
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.todayMark {
+    position: relative;
+
+    z-index: 2;
+
+    display: inline-block;
+
+    margin-top: 7px;
+
+    font-size: 10px;
+
+    padding: 5px 9px;
+
+    border-radius: 100px;
+
+    color: var(--blue);
+
+    background:
+        rgba(255,0,40,.10);
+
+    border:
+        1px solid
+        rgba(255,0,40,.18);
+}
+
+/* =========================================================
+   LESSONS
+========================================================= */
+
+.lessons {
+    padding: 12px;
+}
+
+.lesson {
+    position: relative;
+
+    padding: 16px;
+
+    margin-bottom: 9px;
+
+    border-radius: 17px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+
+    background:
+        rgba(255,255,255,.025);
+
+    overflow: hidden;
+
+    transition:
+        background .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease,
+        transform .25s ease;
+}
+
+.lesson:last-child {
+    margin-bottom: 0;
+}
+
+.lesson::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 2px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            var(--blue),
+            transparent
+        );
+
+    opacity: 0;
+
+    transition:
+        opacity .3s ease;
+}
+
+.lesson:hover {
+    background:
+        rgba(255,0,40,.07);
+
+    border-color:
+        rgba(255,0,40,.28);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.16);
+
+    transform:
+        translateY(-2px);
+}
+
+.lesson:hover::before {
+    opacity: 1;
+}
+
+/* CURRENT */
+
+.lesson.current {
+    border-color:
+        rgba(224,0,42,.60);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(224,0,42,.10),
+            rgba(181,9,40,.05)
+        );
+
+    box-shadow:
+        0 0 28px
+        rgba(224,0,42,.12);
+}
+
+.lesson.current::before {
+    opacity: 1;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            var(--green),
+            transparent
+        );
+}
+
+/* NEXT */
+
+.lesson.next {
+    border-color:
+        rgba(255,104,126,.45);
+}
+
+.lesson.next::before {
+    opacity: 1;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            var(--yellow),
+            transparent
+        );
+}
+
+/* PAST */
+
+.lesson.past {
+    opacity: .46;
+}
+
+/* =========================================================
+   LESSON TEXT
+========================================================= */
+
+.lessonTime {
+    font-size: 12px;
+
+    color: var(--blue);
+
+    font-weight: 750;
+
+    margin-bottom: 8px;
+}
+
+.lessonName {
+    font-size: 15px;
+
+    font-weight: 800;
+
+    line-height: 1.3;
+
+    margin-bottom: 8px;
+}
+
+.lessonInfo {
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    margin-top: 3px;
+}
+
+.lessonBadge {
+    display: inline-block;
+
+    margin-top: 9px;
+
+    padding: 4px 8px;
+
+    border-radius: 8px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    background:
+        rgba(255,0,40,.10);
+
+    color: var(--blue);
+
+    border:
+        1px solid
+        rgba(255,0,40,.12);
+}
+
+.lessonStatus {
+    margin-top: 9px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: .5px;
+}
+
+.lesson.current .lessonStatus {
+    color: var(--green);
+}
+
+.lesson.next .lessonStatus {
+    color: var(--yellow);
+}
+
+/* =========================================================
+   LESSON LINK
+========================================================= */
+
+.lessonLink {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-top: 11px;
+
+    padding: 9px 12px;
+
+    border-radius: 11px;
+
+    text-decoration: none;
+
+    color: #ff526c;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    background:
+        rgba(255,0,40,.08);
+
+    border:
+        1px solid
+        rgba(255,0,40,.20);
+
+    transition:
+        .25s ease;
+}
+
+.lessonLink:hover {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #b50928,
+            #650014
+        );
+
+    border-color:
+        rgba(255,80,100,.65);
+
+    box-shadow:
+        0 0 20px
+        rgba(255,0,40,.28);
+
+    transform:
+        translateY(-2px);
+}
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty {
+    padding: 40px 15px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    padding: 20px 0 45px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px) {
+
+    .schedule {
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .kaneki-bg {
+        opacity: .10;
+    }
+
+}
+
+@media(max-width:900px) {
+
+    .progressArea {
+        grid-template-columns: 1fr;
+    }
+
+    .heroGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .kaneki-bg {
+        display: none;
+    }
+
+}
+
+@media(max-width:800px) {
+
+    header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .heroTop {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .schedule {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:560px) {
+
+    .container {
+        width: 94%;
+    }
+
+    .schedule {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 24px;
+    }
+
+    .heroTitle {
+        font-size: 35px;
+    }
+
+    .logoIcon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .progressBox {
+        padding: 16px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     BACKGROUND
+========================================================= -->
+
+<div class="background">
+
+    <div class="bloodFog fog1"></div>
+    <div class="bloodFog fog2"></div>
+
+    <div class="petals">
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+    </div>
+
+    <div class="grid"></div>
+    <div class="aurora"></div>
+
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+    <div class="ring ring1"></div>
+    <div class="ring ring2"></div>
+
+    <div class="particles"></div>
+
+    <div class="meteor"></div>
+    <div class="meteor"></div>
+    <div class="meteor"></div>
+
+</div>
+
+<!-- =========================================================
+     KANEKI
+========================================================= -->
+
+<div class="kaneki-bg" aria-hidden="true">
+
+    <div class="kaneki-hair"></div>
+
+    <div class="kaneki-head">
+        <div class="kaneki-eye"></div>
+        <div class="kaneki-mask"></div>
+    </div>
+
+    <div class="kaneki-neck"></div>
+    <div class="kaneki-body"></div>
+    <div class="kaneki-red-aura"></div>
+
+</div>
+
+<div id="mouseGlow"></div>
+
+<div class="container">
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+    <div class="logo">
+
+        <div class="logoIcon">
+            ⚖️
+        </div>
+
+        <div>
+
+            <h1>
+                Розклад для 𝕯𝖊𝖆𝖉 𝖎𝖓𝖘𝖎𝖉𝖊💔
+            </h1>
+
+            <p>
+                Мертвый внутри
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="controls">
+
+        <div class="themeMenu" id="themeMenu">
+
+            <button
+                class="control"
+                id="themeButton">
+
+                🎨 Тема
+
+            </button>
+
+            <div class="themeOptions">
+
+                <button
+                    class="themeOption"
+                    onclick="setTheme('dark')">
+
+                    🌙 Темна
+
+                </button>
+
+                <button
+                    class="themeOption"
+                    onclick="setTheme('light')">
+
+                    ☀️ Світла
+
+                </button>
+
+                <button
+                    class="themeOption"
+                    onclick="setTheme('blueTheme')">
+
+                    💙 Blue
+
+                </button>
+
+                <button
+                    class="themeOption"
+                    onclick="setTheme('purpleTheme')">
+
+                    💜 Purple
+
+                </button>
+
+                <button
+                    class="themeOption"
+                    onclick="setTheme('greenTheme')">
+
+                    💚 Neon
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <button
+            class="control"
+            onclick="goToday()">
+
+            📅 Сьогодні
+
+        </button>
+
+    </div>
+
+</header>
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+    <div class="heroContent">
+
+        <div class="heroTop">
+
+            <div>
+
+                <div
+                    class="heroTitle"
+                    id="heroTitle">
+
+                    Завантаження...
+
+                </div>
+
+            </div>
+
+            <div
+                class="weekBadge"
+                id="weekBadge">
+
+                4 тиждень
+
+            </div>
+
+        </div>
+
+        <div class="heroGrid">
+
+            <div class="stat">
+
+                <div class="statLabel">
+                    Поточний час
+                </div>
+
+                <div
+                    class="statValue"
+                    id="clock">
+
+                    00:00:00
+
+                </div>
+
+            </div>
+
+            <div class="stat">
+
+                <div class="statLabel">
+                    Поточна пара
+                </div>
+
+                <div
+                    class="statValue"
+                    id="currentLesson">
+
+                    —
+
+                </div>
+
+            </div>
+
+            <div class="stat">
+
+                <div class="statLabel">
+                    Наступна пара
+                </div>
+
+                <div
+                    class="statValue"
+                    id="nextLesson">
+
+                    —
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="progressArea">
+
+            <div class="progressBox">
+
+                <div class="progressHeader">
+
+                    <div class="progressTitle">
+
+                        <span class="progressIcon">
+                            ⚡
+                        </span>
+
+                        <div>
+
+                            <b>
+                                Прогрес пари
+                            </b>
+
+                            <small
+                                id="lessonProgressText">
+
+                                Немає активної пари
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <strong
+                        id="lessonProgressPercent">
+
+                        0%
+
+                    </strong>
+
+                </div>
+
+                <div class="premiumProgress">
+
+                    <div
+                        class="progressFill lessonProgressFill"
+                        id="lessonProgressBar">
+
+                        <span class="progressShine"></span>
+                        <span class="progressDot"></span>
+
+                    </div>
+
+                </div>
+
+                <div class="progressTimes">
+
+                    <span id="lessonProgressStart">
+                        --:--
+                    </span>
+
+                    <span id="lessonProgressRemaining">
+                        --
+                    </span>
+
+                    <span id="lessonProgressEnd">
+                        --:--
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="progressBox">
+
+                <div class="progressHeader">
+
+                    <div class="progressTitle">
+
+                        <span class="progressIcon">
+                            ☀️
+                        </span>
+
+                        <div>
+
+                            <b>
+                                Прогрес навчального дня
+                            </b>
+
+                            <small id="dayProgressText">
+                                Навчальний день
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <strong id="dayProgressPercent">
+                        0%
+                    </strong>
+
+                </div>
+
+                <div class="premiumProgress">
+
+                    <div
+                        class="progressFill dayProgressFill"
+                        id="dayProgressBar">
+
+                        <span class="progressShine"></span>
+                        <span class="progressDot"></span>
+
+                    </div>
+
+                </div>
+
+                <div class="progressTimes">
+
+                    <span id="dayStart">
+                        --:--
+                    </span>
+
+                    <span id="dayRemaining">
+                        --
+                    </span>
+
+                    <span id="dayEnd">
+                        --:--
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     SEARCH
+========================================================= -->
+
+<div class="toolbar">
+
+    <input
+        id="search"
+        class="search"
+        type="text"
+        placeholder="🔎 Пошук предмету, викладача, аудиторії..."
+    >
+
+</div>
+
+<!-- =========================================================
+     DAYS
+========================================================= -->
+
+<div
+    class="daysFilter"
+    id="daysFilter">
+
+    <button
+        class="dayButton active"
+        data-day="all">
+
+        Усі дні
+
+    </button>
+
+    <button
+        class="dayButton"
+        data-day="Понеділок">
+
+        Понеділок
+
+    </button>
+
+    <button
+        class="dayButton"
+        data-day="Вівторок">
+
+        Вівторок
+
+    </button>
+
+    <button
+        class="dayButton"
+        data-day="Середа">
+
+        Середа
+
+    </button>
+
+    <button
+        class="dayButton"
+        data-day="Четвер">
+
+        Четвер
+
+    </button>
+
+    <button
+        class="dayButton"
+        data-day="П’ятниця">
+
+        П’ятниця
+
+    </button>
+
+</div>
+
+<!-- =========================================================
+     SCHEDULE
+========================================================= -->
+
+<div
+    class="schedule"
+    id="schedule">
+</div>
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    あなたが嫌い​です ▬▬ι═══════ﺤ 𓆰𓆪
+    𝕯𝖊𝖆𝖉 𝖎𝖓𝖘𝖎𝖉𝖊 ·
+
+    <span id="footerWeek">
+        4 тиждень
+    </span>
+
+</footer>
+
+</div>
+
+<script>
+
+/* =========================================================
+   СЕМЕСТР
+========================================================= */
+
+const SEMESTER_START =
+    new Date(2026, 7, 31);
+
+
+/* =========================================================
+   РОЗКЛАД
+   СТРУКТУРА:
+   [час початку, час кінця, предмет,
+    викладач, аудиторія, тижні, посилання]
+========================================================= */
+
+const schedule = {
+
+"Понеділок": [
+
+    [
+        "08:30",
+        "09:50",
+        "Англійська мова",
+        "ст.викл. Залєська-Зарічна Л.М.",
+        "Онлайн",
+        "2–14",
+        "https://us05web.zoom.us/j/83602399769?pwd=9ExQgn5J6wbuPjGFX4f6DbD52Qr1Z3.1"
+    ],
+
+    [
+        "10:00",
+        "11:20",
+        "Цивільне право",
+        "ст.викладач Абрамов Я.В.",
+        "онлайн",
+        "11–13",
+        ""
+    ],
+
+    [
+        "10:00",
+        "11:20",
+        "Цивільне право",
+        "проф. Музика Л.А. · лекція",
+        "онлайн",
+        "2–8",
+        ""
+    ],
+
+    [
+        "11:40",
+        "13:00",
+        "Цивільне право",
+        "проф. Музика Л.А. · лекція",
+        "онлайн",
+        "2–8",
+        ""
+    ]
+
+],
+
+"Вівторок": [
+
+    [
+        "08:30",
+        "09:50",
+        "Заняття",
+        "",
+        "онлайн",
+        "2–11",
+        ""
+    ],
+
+    [
+        "10:00",
+        "11:20",
+        "Заняття",
+        "лекція",
+        "ПідWALL / ауд. 4-319 / 4-314",
+        "2–13",
+        ""
+    ],
+
+    [
+        "11:40",
+        "13:00",
+        "Заняття",
+        "лекція",
+        "онлайн / 4-319 / 4-314",
+        "2–14",
+        ""
+    ],
+
+    [
+        "11:40",
+        "13:00",
+        "Цивільне право",
+        "ст.викладач Абрамов Я.В.",
+        "онлайн",
+        "3–14",
+        ""
+    ],
+
+    [
+        "13:30",
+        "14:50",
+        "Заняття",
+        "лекція",
+        "ПідWALL / онлайн / 4-319",
+        "3–14",
+        ""
+    ],
+
+    [
+        "16:30",
+        "17:50",
+        "Заняття",
+        "",
+        "4-319",
+        "3–14",
+        ""
+    ]
+
+],
+
+"Середа": [
+
+    [
+        "10:00",
+        "11:20",
+        "Адміністративне право",
+        "доц. Іщенко Ю.В. · лекція",
+        "онлайн",
+        "1–7",
+        ""
+    ],
+
+    [
+        "11:40",
+        "13:00",
+        "Адміністративне право",
+        "доц. Іщенко Ю.В. · лекція",
+        "онлайн",
+        "1–3",
+        ""
+    ],
+
+    [
+        "11:40",
+        "13:00",
+        "Адміністративне право",
+        "",
+        "онлайн",
+        "4–13",
+        ""
+    ],
+
+    [
+        "16:30",
+        "17:50",
+        "Заняття",
+        "лекція",
+        "онлайн",
+        "1–11",
+        ""
+    ]
+
+],
+
+"Четвер": [
+
+    [
+        "13:30",
+        "14:50",
+        "Конституційне право",
+        "ст. викл. Абрамович Р.М.",
+        "онлайн",
+        "1–7",
+        ""
+    ],
+
+    [
+        "13:30",
+        "14:50",
+        "Основи націолнального супротиву",
+        "ст. викл. Костюк О.О. · лекція",
+        "онлайн",
+        "1–7",
+        ""
+    ],
+
+    [
+        "15:00",
+        "16:30",
+        "Основи націолнального супротиву",
+        "ст. викл. Костюк О.О. · лекція",
+        "онлайн",
+        "1–3",
+        ""
+    ]
+
+],
+
+"П’ятниця": [
+
+    [
+        "08:30",
+        "09:50",
+        "Англійська мова",
+        "ст.викл. Залєська-Зарічна Л.М.",
+        "Онлайн",
+        "2–13",
+        "https://us05web.zoom.us/j/83602399769?pwd=9ExQgn5J6wbuPjGFX4f6DbD52Qr1Z3.1"
+    ],
+
+    [
+        "10:00",
+        "11:30",
+        "Політична система України",
+        "",
+        "онлайн",
+        "",
+        ""
+    ],
+
+    [
+        "15:00",
+        "16:30",
+        "Міжнародний захист гендерних прав і прав дітей",
+        "",
+        "онлайн",
+        "2–9",
+        "https://us02web.zoom.us/j/88336998508?pwd=NplIgb30KOjMDZLD8FJOcawWQhB5vU.1"
+    ],
+
+    [
+        "16:30",
+        "17:50",
+        "Заняття",
+        "лекція",
+        "онлайн",
+        "3–10",
+        ""
+    ]
+
+]
+
+};
+
+
+/* =========================================================
+   DAYS
+========================================================= */
+
+const days = [
+    "Понеділок",
+    "Вівторок",
+    "Середа",
+    "Четвер",
+    "П’ятниця"
+];
+
+const jsDays = [
+    "Неділя",
+    "Понеділок",
+    "Вівторок",
+    "Середа",
+    "Четвер",
+    "П’ятниця",
+    "Субота"
+];
+
+let selectedDay = "all";
+let searchText = "";
+let lastMinute = "";
+let lastWeek = null;
+
+
+/* =========================================================
+   ACADEMIC WEEK
+========================================================= */
+
+function getAcademicWeek(date = new Date()) {
+
+    const start =
+        new Date(SEMESTER_START);
+
+    start.setHours(0,0,0,0);
+
+    const current =
+        new Date(date);
+
+    current.setHours(0,0,0,0);
+
+    const diff =
+        current - start;
+
+    return Math.max(
+        1,
+        Math.floor(
+            diff / 86400000 / 7
+        ) + 1
+    );
+}
+
+
+/* =========================================================
+   WEEK RANGE
+========================================================= */
+
+function parseWeekRange(value) {
+
+    if (!value)
+        return null;
+
+    const match =
+        String(value).match(
+            /(\d+)\s*[–—-]\s*(\d+)/
+        );
+
+    if (!match)
+        return null;
+
+    return {
+        from: Number(match[1]),
+        to: Number(match[2])
+    };
+}
+
+
+/* =========================================================
+   REAL LESSON
+========================================================= */
+
+function isRealLesson(lesson) {
+
+    if (!lesson)
+        return false;
+
+    const name =
+        String(
+            lesson[2] || ""
+        ).trim();
+
+    if (!name)
+        return false;
+
+    if (
+        name.toLowerCase() ===
+        "заняття"
+    )
+        return false;
+
+    return true;
+}
+
+
+/* =========================================================
+   WEEK FILTER
+========================================================= */
+
+function isLessonForWeek(
+    lesson,
+    week
+) {
+
+    if (!isRealLesson(lesson))
+        return false;
+
+    const range =
+        parseWeekRange(
+            lesson[5]
+        );
+
+    if (!range)
+        return true;
+
+    return (
+        week >= range.from &&
+        week <= range.to
+    );
+}
+
+
+/* =========================================================
+   GET LESSONS
+========================================================= */
+
+function getVisibleLessons(
+    day,
+    week
+) {
+
+    return (
+        schedule[day] || []
+    ).filter(
+        lesson =>
+            isLessonForWeek(
+                lesson,
+                week
+            )
+    );
+}
+
+
+/* =========================================================
+   MINUTES
+========================================================= */
+
+function minutes(time) {
+
+    const [
+        h,
+        m
+    ] =
+        time
+        .split(":")
+        .map(Number);
+
+    return h * 60 + m;
+}
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+function escapeHTML(text) {
+
+    return String(
+        text || ""
+    ).replace(
+        /[&<>"']/g,
+        char => ({
+
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+
+        })[char]
+    );
+}
+
+
+/* =========================================================
+   SAFE URL
+========================================================= */
+
+function safeURL(url) {
+
+    if (!url)
+        return "";
+
+    const value =
+        String(url).trim();
+
+    if (
+        value.startsWith("https://") ||
+        value.startsWith("http://")
+    ) {
+        return value;
+    }
+
+    return "";
+}
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function render() {
+
+    const now =
+        new Date();
+
+    const today =
+        jsDays[
+            now.getDay()
+        ];
+
+    const week =
+        getAcademicWeek(now);
+
+    document.getElementById(
+        "weekBadge"
+    ).textContent =
+        `${week} тиждень`;
+
+    document.getElementById(
+        "footerWeek"
+    ).textContent =
+        `${week} тиждень`;
+
+    const container =
+        document.getElementById(
+            "schedule"
+        );
+
+    container.innerHTML = "";
+
+    days.forEach(day => {
+
+        if (
+            selectedDay !== "all" &&
+            selectedDay !== day
+        )
+            return;
+
+        let lessons =
+            getVisibleLessons(
+                day,
+                week
+            );
+
+        if (searchText) {
+
+            lessons =
+                lessons.filter(
+                    lesson => {
+
+                        const text =
+                            lesson
+                            .join(" ")
+                            .toLowerCase();
+
+                        return text.includes(
+                            searchText
+                        );
+
+                    }
+                );
+        }
+
+        const dayElement =
+            document.createElement(
+                "div"
+            );
+
+        dayElement.className = "day";
+
+        if (day === today) {
+
+            dayElement.classList.add(
+                "today"
+            );
+
+        }
+
+        dayElement.innerHTML = `
+
+            <div class="dayHeader">
+
+                <div class="dayName">
+                    ${day}
+                </div>
+
+                ${
+                    day === today
+                    ?
+                    `
+                    <div class="todayMark">
+                        ● СЬОГОДНІ
+                    </div>
+                    `
+                    :
+                    ""
+                }
+
+            </div>
+
+            <div class="lessons">
+
+                ${
+                    lessons.length
+                    ?
+
+                    lessons
+                    .map(
+                        lesson =>
+                            createLessonHTML(
+                                lesson,
+                                day,
+                                now
+                            )
+                    )
+                    .join("")
+
+                    :
+
+                    `
+                    <div class="empty">
+                        На цьому тижні
+                        пар немає
+                    </div>
+                    `
+                }
+
+            </div>
+        `;
+
+        container.appendChild(
+            dayElement
+        );
+
+    });
+
+    updateHero(now);
+    updateProgresses(now);
+}
+
+
+/* =========================================================
+   LESSON HTML
+========================================================= */
+
+function createLessonHTML(
+    lesson,
+    day,
+    now
+) {
+
+    const [
+        start,
+        end,
+        name,
+        teacher,
+        room,
+        range,
+        link
+    ] = lesson;
+
+    const today =
+        jsDays[
+            now.getDay()
+        ];
+
+    const currentMinutes =
+        now.getHours() * 60 +
+        now.getMinutes();
+
+    let state = "";
+    let status = "";
+
+    if (day === today) {
+
+        const startM =
+            minutes(start);
+
+        const endM =
+            minutes(end);
+
+        if (
+            currentMinutes >= startM &&
+            currentMinutes < endM
+        ) {
+
+            state = "current";
+            status = "● ЗАРАЗ";
+
+        }
+        else if (
+            currentMinutes < startM
+        ) {
+
+            state = "next";
+            status = "◉ НАСТУПНА";
+
+        }
+        else {
+
+            state = "past";
+
+        }
+    }
+
+    const validLink =
+        safeURL(link);
+
+    return `
+
+        <div
+            class="lesson ${state}"
+            data-start="${escapeHTML(start)}"
+            data-end="${escapeHTML(end)}"
+            data-day="${escapeHTML(day)}"
+        >
+
+            <div class="lessonTime">
+                ${escapeHTML(start)} — ${escapeHTML(end)}
+            </div>
+
+            <div class="lessonName">
+                ${escapeHTML(name)}
+            </div>
+
+            ${
+                teacher
+                ?
+                `
+                <div class="lessonInfo">
+                    👨‍🏫
+                    ${escapeHTML(teacher)}
+                </div>
+                `
+                :
+                ""
+            }
+
+            ${
+                room
+                ?
+                `
+                <div class="lessonInfo">
+                    📍
+                    ${escapeHTML(room)}
+                </div>
+                `
+                :
+                ""
+            }
+
+            ${
+                range
+                ?
+                `
+                <div class="lessonBadge">
+                    Тижні ${escapeHTML(range)}
+                </div>
+                `
+                :
+                `
+                <div class="lessonBadge">
+                    Тижні 1-8
+                </div>
+                `
+            }
+
+            ${
+                validLink
+                ?
+                `
+                <a
+                    class="lessonLink"
+                    href="${escapeHTML(validLink)}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    🔗 Перейти на пару
+                </a>
+                `
+                :
+                ""
+            }
+
+            ${
+                status
+                ?
+                `
+                <div class="lessonStatus">
+                    ${status}
+                </div>
+                `
+                :
+                ""
+            }
+
+        </div>
+
+    `;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+function updateHero(now) {
+
+    const day =
+        jsDays[
+            now.getDay()
+        ];
+
+    const week =
+        getAcademicWeek(now);
+
+    document.getElementById(
+        "heroTitle"
+    ).textContent =
+
+        day === "Субота" ||
+        day === "Неділя"
+
+        ?
+
+        "Вихідний день"
+
+        :
+
+        day;
+
+    const lessons =
+        days.includes(day)
+
+        ?
+
+        getVisibleLessons(
+            day,
+            week
+        )
+
+        :
+
+        [];
+
+    const currentMinutes =
+        now.getHours() * 60 +
+        now.getMinutes();
+
+    let current = null;
+    let next = null;
+
+    lessons.forEach(lesson => {
+
+        const start =
+            minutes(
+                lesson[0]
+            );
+
+        const end =
+            minutes(
+                lesson[1]
+            );
+
+        if (
+            currentMinutes >= start &&
+            currentMinutes < end
+        ) {
+
+            current = lesson;
+
+        }
+
+        if (
+            currentMinutes < start &&
+            !next
+        ) {
+
+            next = lesson;
+
+        }
+
+    });
+
+    document.getElementById(
+        "currentLesson"
+    ).textContent =
+
+        current
+        ?
+        current[2]
+        :
+        "—";
+
+    document.getElementById(
+        "nextLesson"
+    ).textContent =
+
+        next
+        ?
+        `${next[2]} · ${next[0]}`
+        :
+        "—";
+}
+
+
+/* =========================================================
+   FORMAT DURATION
+========================================================= */
+
+function formatDuration(
+    minutesLeft
+) {
+
+    if (minutesLeft < 0)
+        minutesLeft = 0;
+
+    const h =
+        Math.floor(
+            minutesLeft / 60
+        );
+
+    const m =
+        Math.floor(
+            minutesLeft % 60
+        );
+
+    if (h > 0) {
+        return `${h} год ${m} хв`;
+    }
+
+    return `${m} хв`;
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function updateProgresses(now) {
+
+    const day =
+        jsDays[
+            now.getDay()
+        ];
+
+    const week =
+        getAcademicWeek(now);
+
+    const lessons =
+        days.includes(day)
+
+        ?
+
+        getVisibleLessons(
+            day,
+            week
+        )
+
+        :
+
+        [];
+
+    const currentMinutes =
+        now.getHours() * 60 +
+        now.getMinutes();
+
+    let currentLesson = null;
+    let nextLesson = null;
+
+    lessons.forEach(lesson => {
+
+        const start =
+            minutes(
+                lesson[0]
+            );
+
+        const end =
+            minutes(
+                lesson[1]
+            );
+
+        if (
+            currentMinutes >= start &&
+            currentMinutes < end
+        ) {
+
+            currentLesson =
+                lesson;
+
+        }
+
+        if (
+            currentMinutes < start &&
+            !nextLesson
+        ) {
+
+            nextLesson =
+                lesson;
+
+        }
+
+    });
+
+    updateLessonProgress(
+        currentLesson,
+        currentMinutes
+    );
+
+    updateDayProgress(
+        lessons,
+        currentMinutes,
+        currentLesson,
+        nextLesson
+    );
+}
+
+
+/* =========================================================
+   LESSON PROGRESS
+========================================================= */
+
+function updateLessonProgress(
+    lesson,
+    currentMinutes
+) {
+
+    const bar =
+        document.getElementById(
+            "lessonProgressBar"
+        );
+
+    const percent =
+        document.getElementById(
+            "lessonProgressPercent"
+        );
+
+    const text =
+        document.getElementById(
+            "lessonProgressText"
+        );
+
+    const startElement =
+        document.getElementById(
+            "lessonProgressStart"
+        );
+
+    const remainingElement =
+        document.getElementById(
+            "lessonProgressRemaining"
+        );
+
+    const endElement =
+        document.getElementById(
+            "lessonProgressEnd"
+        );
+
+    if (!lesson) {
+
+        bar.style.width = "0%";
+
+        percent.textContent = "0%";
+
+        text.textContent =
+            "Немає активної пари";
+
+        startElement.textContent =
+            "--:--";
+
+        remainingElement.textContent =
+            "--";
+
+        endElement.textContent =
+            "--:--";
+
+        return;
+    }
+
+    const start =
+        minutes(
+            lesson[0]
+        );
+
+    const end =
+        minutes(
+            lesson[1]
+        );
+
+    const total =
+        end - start;
+
+    const passed =
+        currentMinutes - start;
+
+    const progress =
+        Math.min(
+            100,
+            Math.max(
+                0,
+                passed / total * 100
+            )
+        );
+
+    bar.style.width =
+        progress + "%";
+
+    percent.textContent =
+        Math.round(progress) + "%";
+
+    text.textContent =
+        lesson[2];
+
+    startElement.textContent =
+        lesson[0];
+
+    endElement.textContent =
+        lesson[1];
+
+    remainingElement.textContent =
+        "залишилось " +
+        formatDuration(
+            end - currentMinutes
+        );
+}
+
+
+/* =========================================================
+   DAY PROGRESS
+========================================================= */
+
+function updateDayProgress(
+    lessons,
+    currentMinutes,
+    currentLesson,
+    nextLesson
+) {
+
+    const bar =
+        document.getElementById(
+            "dayProgressBar"
+        );
+
+    const percent =
+        document.getElementById(
+            "dayProgressPercent"
+        );
+
+    const text =
+        document.getElementById(
+            "dayProgressText"
+        );
+
+    const startElement =
+        document.getElementById(
+            "dayStart"
+        );
+
+    const remainingElement =
+        document.getElementById(
+            "dayRemaining"
+        );
+
+    const endElement =
+        document.getElementById(
+            "dayEnd"
+        );
+
+    if (!lessons.length) {
+
+        bar.style.width = "0%";
+
+        percent.textContent = "0%";
+
+        text.textContent =
+            "Сьогодні пар немає";
+
+        startElement.textContent =
+            "--:--";
+
+        remainingElement.textContent =
+            "--";
+
+        endElement.textContent =
+            "--:--";
+
+        return;
+    }
+
+    const firstStart =
+        minutes(
+            lessons[0][0]
+        );
+
+    const lastEnd =
+        minutes(
+            lessons[
+                lessons.length - 1
+            ][1]
+        );
+
+    const total =
+        lastEnd - firstStart;
+
+    let currentPoint =
+        currentMinutes;
+
+    if (
+        currentPoint <
+        firstStart
+    ) {
+
+        currentPoint =
+            firstStart;
+    }
+
+    if (
+        currentPoint >
+        lastEnd
+    ) {
+
+        currentPoint =
+            lastEnd;
+    }
+
+    const progress =
+        Math.min(
+            100,
+            Math.max(
+                0,
+                (
+                    currentPoint -
+                    firstStart
+                ) /
+                total *
+                100
+            )
+        );
+
+    bar.style.width =
+        progress + "%";
+
+    percent.textContent =
+        Math.round(progress) + "%";
+
+    text.textContent =
+
+        currentLesson
+        ?
+
+        `Зараз: ${currentLesson[2]}`
+
+        :
+
+        nextLesson
+        ?
+
+        `Далі: ${nextLesson[2]}`
+
+        :
+
+        "Навчальний день завершено";
+
+    startElement.textContent =
+        lessons[0][0];
+
+    endElement.textContent =
+        lessons[
+            lessons.length - 1
+        ][1];
+
+    if (
+        currentMinutes <
+        firstStart
+    ) {
+
+        remainingElement.textContent =
+            "до початку " +
+            formatDuration(
+                firstStart -
+                currentMinutes
+            );
+
+    }
+    else if (
+        currentMinutes <
+        lastEnd
+    ) {
+
+        remainingElement.textContent =
+            "до кінця " +
+            formatDuration(
+                lastEnd -
+                currentMinutes
+            );
+
+    }
+    else {
+
+        remainingElement.textContent =
+            "завершено";
+
+    }
+}
+
+
+/* =========================================================
+   CLOCK
+========================================================= */
+
+function updateClock() {
+
+    const now =
+        new Date();
+
+    const time =
+        now.toLocaleTimeString(
+            "uk-UA",
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            }
+        );
+
+    document.getElementById(
+        "clock"
+    ).textContent =
+        time;
+
+    const minuteKey =
+        `${now.getFullYear()}-` +
+        `${now.getMonth()}-` +
+        `${now.getDate()}-` +
+        `${now.getHours()}-` +
+        `${now.getMinutes()}`;
+
+    const week =
+        getAcademicWeek(now);
+
+    if (
+        minuteKey !== lastMinute ||
+        week !== lastWeek
+    ) {
+
+        lastMinute =
+            minuteKey;
+
+        lastWeek =
+            week;
+
+        render();
+
+    }
+    else {
+
+        updateHero(now);
+        updateProgresses(now);
+
+    }
+}
+
+
+/* =========================================================
+   GO TODAY
+========================================================= */
+
+function goToday() {
+
+    const today =
+        jsDays[
+            new Date().getDay()
+        ];
+
+    if (
+        days.includes(today)
+    ) {
+
+        selectedDay =
+            today;
+
+        document
+            .querySelectorAll(
+                ".dayButton"
+            )
+            .forEach(button => {
+
+                button.classList.toggle(
+                    "active",
+                    button.dataset.day ===
+                    today
+                );
+
+            });
+
+    }
+
+    render();
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+document
+    .getElementById("search")
+    .addEventListener(
+        "input",
+        event => {
+
+            searchText =
+                event.target.value
+                    .trim()
+                    .toLowerCase();
+
+            render();
+
+        }
+    );
+
+
+/* =========================================================
+   DAY FILTER
+========================================================= */
+
+document
+    .getElementById("daysFilter")
+    .addEventListener(
+        "click",
+        event => {
+
+            const button =
+                event.target.closest(
+                    ".dayButton"
+                );
+
+            if (!button)
+                return;
+
+            selectedDay =
+                button.dataset.day;
+
+            document
+                .querySelectorAll(
+                    ".dayButton"
+                )
+                .forEach(item => {
+
+                    item.classList.toggle(
+                        "active",
+                        item === button
+                    );
+
+                });
+
+            render();
+
+        }
+    );
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+const themeMenu =
+    document.getElementById(
+        "themeMenu"
+    );
+
+document
+    .getElementById("themeButton")
+    .addEventListener(
+        "click",
+        event => {
+
+            event.stopPropagation();
+
+            themeMenu.classList.toggle(
+                "open"
+            );
+
+        }
+    );
+
+document.addEventListener(
+    "click",
+    () => {
+
+        themeMenu.classList.remove(
+            "open"
+        );
+
+    }
+);
+
+function setTheme(theme) {
+
+    document.body.classList.remove(
+        "light",
+        "blueTheme",
+        "purpleTheme",
+        "greenTheme"
+    );
+
+    if (theme !== "dark") {
+
+        document.body.classList.add(
+            theme
+        );
+
+    }
+
+    localStorage.setItem(
+        "scheduleTheme",
+        theme
+    );
+
+    themeMenu.classList.remove(
+        "open"
+    );
+}
+
+
+/* =========================================================
+   LOAD THEME
+========================================================= */
+
+const savedTheme =
+    localStorage.getItem(
+        "scheduleTheme"
+    );
+
+if (savedTheme) {
+
+    setTheme(
+        savedTheme
+    );
+
+}
+
+
+/* =========================================================
+   MOUSE GLOW
+========================================================= */
+
+const mouseGlow =
+    document.getElementById(
+        "mouseGlow"
+    );
+
+document.addEventListener(
+    "mousemove",
+    event => {
+
+        mouseGlow.style.left =
+            event.clientX + "px";
+
+        mouseGlow.style.top =
+            event.clientY + "px";
+
+    }
+);
+
+
+/* =========================================================
+   START
+========================================================= */
+
+render();
+
+updateClock();
+
+setInterval(
+    updateClock,
+    1000
+);
+
+</script>
+
+</body>
+</html>
